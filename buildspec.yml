@@ -9,20 +9,20 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
-      - echo "🚀 Install phase: installing all deps…"
+      - echo "Installing dependencies..."
       - npm install
 
   build:
     commands:
-      - echo "🔨 Build phase: running vite build…"
+      - echo "Building application..."
       - npm run build
 
   post_build:
     commands:
-      - echo "☁️ Post-build: deploying 'dist/' to S3…"
+      - echo "Deploying to S3..."
       - aws s3 sync dist/ s3://finnancy-artefacts-bucket --delete
 
 artifacts:
   base-directory: dist
   files:
-    - '**/*'
+    - "**/*"
