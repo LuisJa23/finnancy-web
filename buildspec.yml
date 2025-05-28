@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    NPM_CONFIG_PRODUCTION: "false"   # instala devDependencies (vite, plugins, etc.)
+    NPM_CONFIG_PRODUCTION: "false"
 
 phases:
   install:
@@ -23,6 +23,6 @@ phases:
       - aws s3 sync dist/ s3://finnancy-artefacts-bucket --delete
 
 artifacts:
-  base-directory: dist    # opcional, para que CodePipeline reconozca los artefactos
+  base-directory: dist
   files:
     - '**/*'
