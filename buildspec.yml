@@ -1,8 +1,8 @@
 version: 0.2
-────────────────────────────────────────────────────
+
 env:
   variables:
-    NPM_CONFIG_PRODUCTION: "false"   # IMPORTANTE: así npm install instalará devDependencies
+    NPM_CONFIG_PRODUCTION: "false"
 
 phases:
   install:
