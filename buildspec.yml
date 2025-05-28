@@ -11,12 +11,12 @@ phases:
     commands:
       - echo "🚀 Install phase: installing all deps…"
       - npm install
-  
+
   build:
     commands:
       - echo "🔨 Build phase: running vite build…"
       - npm run build
-  
+
   post_build:
     commands:
       - echo "☁️ Post-build: deploying 'dist/' to S3…"
