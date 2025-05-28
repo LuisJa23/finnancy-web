@@ -1,0 +1,155 @@
+/* CSS for ExpensesByCategory */
+.expenses-by-category-container {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.chart-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  min-height: 420px;
+  position: relative;
+}
+
+.chart-title {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #2D3748;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+/* Chart container wrapper */
+.chart-container-wrapper {
+  flex: 1;
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-legend {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+
+.custom-legend li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.85em;
+  width: 100%;
+  color: #4A5568;
+}
+
+.custom-legend li:last-child {
+  margin-bottom: 0;
+}
+
+.legend-icon-background {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.legend-icon-emoji {
+  font-size: 0.9em;
+}
+
+.legend-text-category {
+  flex-grow: 1;
+  font-weight: 500;
+}
+
+.legend-value {
+  margin-left: auto;
+  font-weight: 500;
+  color: #718096;
+  flex-shrink: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .chart-card {
+    padding: 20px;
+    min-height: 400px;
+  }
+  
+  .chart-title {
+    font-size: 1em;
+  }
+  
+  .chart-container-wrapper {
+    min-height: 160px;
+  }
+  .custom-legend {
+    margin-top: 8px;
+  }
+  .custom-legend li {
+    margin-bottom: 8px;
+    font-size: 0.8em;
+  }
+  .legend-icon-background {
+    width: 26px;
+    height: 26px;
+    margin-right: 8px;
+  }
+  .legend-icon-emoji {
+    font-size: 0.85em;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-card {
+    padding: 16px;
+    min-height: 380px;
+  }
+  
+  .chart-title {
+    font-size: 0.95em;
+    margin-bottom: 15px;
+  }
+  
+  .chart-container-wrapper {
+    min-height: 150px;
+  }
+  .custom-legend {
+    margin-top: 6px;
+  }
+  .custom-legend li {
+    margin-bottom: 6px;
+    font-size: 0.75em;
+  }
+  .legend-icon-background {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
+  }
+  .legend-icon-emoji {
+    font-size: 0.8em;
+  }
+} 

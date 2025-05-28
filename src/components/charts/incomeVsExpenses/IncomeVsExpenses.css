@@ -1,0 +1,60 @@
+/* CSS for IncomeVsExpenses */
+.income-vs-expenses-container {
+  /* Add styles to match the image */
+}
+
+.income-vs-expenses-container .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.income-vs-expenses-container .chart-title {
+  margin-bottom: 0; /* Remove default margin as it's handled by header-container */
+  text-align: left;
+}
+
+.income-vs-expenses-container .total-amount {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+}
+
+.filter-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #e7eaf6; /* Light blue-gray from image */
+  color: #38598b; /* Darker blue from image */
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter-button:hover {
+  background-color: #dce1f0;
+}
+
+.custom-tooltip {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.custom-tooltip .label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.custom-tooltip .intro {
+  margin: 0;
+  font-size: 0.9em;
+}
+/* General chart card styles are in ExpensesByCategory.css */ 
