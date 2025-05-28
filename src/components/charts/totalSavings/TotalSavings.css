@@ -1,0 +1,26 @@
+/* CSS for TotalSavings */
+.total-savings-container {
+  /* Add styles to match the image */
+  /* Specific styles for this chart if needed */
+}
+
+.total-savings-container .chart-title.amount {
+  font-size: 2.5em; /* Larger font for the amount */
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px; /* Smaller margin below amount */
+  text-align: center;
+}
+
+.total-savings-container .savings-text {
+  font-size: 0.9em;
+  color: #666;
+  text-align: center;
+  margin-bottom: 20px; /* Space before the chart */
+}
+
+.total-savings-container .header-container {
+    margin-bottom: 20px;
+}
+
+/* General chart card styles are in ExpensesByCategory.css */ 

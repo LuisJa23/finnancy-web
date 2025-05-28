@@ -1,0 +1,21 @@
+.navbar {
+  min-height: 10vh;
+}
+.footer {
+  min-height: 15vh;
+}
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 75vh;
+  min-width: 100vw;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+  .container {
+    min-height: auto; /* Permite que el contenido ajuste la altura */
+  }
+}

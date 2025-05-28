@@ -1,0 +1,35 @@
+.notification-dropdown {
+  position: absolute;
+  right: 0;
+  top: 120%;
+  min-width: 250px;
+  max-height: 250px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  padding: 0.5rem 0;
+  z-index: 1000;
+  background: #fff;
+}
+
+.notification-title {
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-bottom: 1px solid #eee;
+}
+
+.notification-empty {
+  padding: 0.5rem 1rem;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.notification-item {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #f1f1f1;
+  font-size: 0.95rem;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}

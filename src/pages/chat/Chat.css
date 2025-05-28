@@ -1,0 +1,261 @@
+/* ChatComponent.css */
+.chat-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.chat-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  margin: 1rem;
+  height: 100%;
+  min-height: 40vh;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.message-row {
+  display: flex;
+  margin-bottom: 12px;
+  align-items: flex-end;
+}
+
+.user-message {
+  justify-content: flex-end;
+}
+
+.bot-message {
+  justify-content: flex-start;
+}
+
+.avatar {
+  margin-right: 8px;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.message {
+  padding: 12px 16px;
+  border-radius: 18px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+/* Manteniendo colores originales */
+.message.user {
+  background-color: #1e88e5;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.message.bot {
+  background-color: white;
+  color: #333;
+  border-bottom-left-radius: 4px;
+  border: 1px solid #eee;
+}
+
+.input-area {
+  display: flex;
+  margin-bottom: 8px;
+  padding: 0 1rem;
+}
+
+.message-input {
+  flex-grow: 1;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 1.5rem;
+  margin-right: 0.6rem;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.message-input:focus {
+  border-color: #1e88e5;
+  box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.2);
+}
+
+.send-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #1e88e5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+.send-button:hover {
+  background-color: #1976d2;
+}
+
+/* Chat.css - Versión responsiva manteniendo estilos originales */
+.main-content-chat {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  padding: 0 5%;
+  background: white;
+}
+
+.logo {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.chat-container-a {
+  padding: 1rem 0;
+  padding-left: 5%;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-chat {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  border-radius: 1rem;
+  border: 2px solid #1e90ff;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  background: #f8faff;
+}
+
+.info-chat > div {
+  max-height: 100%;
+  margin-left: 1rem;
+}
+.info-chat > div > p {
+  margin: 0;
+}
+
+.chat-logo {
+  height: 4em;
+  width: 4rem;
+  padding: 0.6rem;
+  background-color: #f2f8ff;
+  border-radius: 100%;
+}
+
+.green {
+  color: #28a745;
+}
+
+.red {
+  color: #dc3545;
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 1024px) {
+  .main-content-chat {
+    padding: 0 2%;
+  }
+
+  .chat-container {
+    height: 350px;
+  }
+
+  .logo img {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content-chat {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .logo,
+  .chat-container-a {
+    width: 100%;
+    padding: 0;
+  }
+
+  .chat-container-a {
+    padding-left: 0;
+    margin-top: 1rem;
+  }
+
+  .chat-container {
+    height: 60vh;
+    margin: 0.5rem 0;
+  }
+
+  .info-chat {
+    height: auto;
+    padding: 1rem;
+  }
+  .img-fluid {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .message {
+    max-width: 85%;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .avatar {
+    font-size: 20px;
+  }
+
+  .send-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .message-input {
+    font-size: 14px;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .logo img {
+    max-width: 250px;
+  }
+
+  .info-chat {
+    flex-direction: row;
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .info-chat > div {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  .img-fluid {
+    max-height: 150px;
+  }
+}
