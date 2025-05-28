@@ -2,26 +2,27 @@ version: 0.2
 
 env:
   variables:
-    NPM_CONFIG_PRODUCTION: "false"
+    NPM_CONFIG_PRODUCTION: "false"   # instala devDependencies (vite, plugins, etc.)
 
 phases:
   install:
     runtime-versions:
       nodejs: 18
     commands:
-      - echo "Instalando dependencias (incluyendo devDependencies)…"
+      - echo "🚀 Install phase: installing all deps…"
       - npm install
 
   build:
     commands:
-      - echo "Corriendo vite build…"
+      - echo "🔨 Build phase: running vite build…"
       - npm run build
 
   post_build:
     commands:
-      - echo "Sincronizando dist/ a S3…"
+      - echo "☁️ Post-build: deploying 'dist/' to S3…"
       - aws s3 sync dist/ s3://finnancy-artefacts-bucket --delete
 
 artifacts:
+  base-directory: dist    # opcional, para que CodePipeline reconozca los artefactos
   files:
     - '**/*'
