@@ -6,21 +6,20 @@ env:
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 18
     commands:
-      - cd ..
-      - echo "Instalando dependencias…"
+      - echo "Instalando dependencias (incluyendo devDependencies)…"
       - npm install
 
   build:
     commands:
-      - cd ..
-      - echo "Construyendo…"
+      - echo "Construyendo la aplicación React…"
       - npm run build
 
   post_build:
     commands:
-      - cd ..
-      - echo "Desplegando…"
+      - echo "Desplegando archivos a S3…"
       - aws s3 sync build/ s3://finnancy-artefacts-bucket --delete
 
 artifacts:
