@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "serve -s build -p %PORT%",
-  "build": "react-scripts build"
+    "build": "react-scripts build"
   },
   "dependencies": {
     "bootstrap": "^5.3.6",
@@ -21,7 +21,8 @@
     "react-router-dom": "^7.6.0",
     "react-slick": "^0.30.3",
     "recharts": "^2.15.3",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "react-scripts": "5.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

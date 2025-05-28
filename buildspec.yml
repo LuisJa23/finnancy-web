@@ -1,26 +1,27 @@
 version: 0.2
+────────────────────────────────────────────────────
+env:
+  variables:
+    NPM_CONFIG_PRODUCTION: "false"   # IMPORTANTE: así npm install instalará devDependencies
 
 phases:
   install:
     runtime-versions:
       nodejs: 18
     commands:
-      - echo "Instalando dependencias..."
+      - echo "Instalando dependencias (incluyendo devDependencies)…"
       - npm install
-      # - npm ci
 
   build:
     commands:
-      - echo "Compilando proyecto..."
-      # Genera la carpeta dist (si tu build lo requiere)
-      - npm run build  # Ejemplo: Si usas TypeScript o herramientas de bundling
+      - echo "Construyendo la aplicación React…"
+      - npm run build
 
   post_build:
     commands:
-      - echo "Pipeline ejecutado con éxito en $(date)"
+      - echo "Desplegando archivos a S3…"
+      - aws s3 sync build/ s3://finnancy-artefacts-bucket --delete
 
 artifacts:
   files:
-    - '**/*'           # Incluir todos los archivos
-  base-directory: .    # No usar "dist" (a menos que tu build lo justifique)
-  discard-paths: no
+    - '**/*'
