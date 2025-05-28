@@ -14,13 +14,13 @@ phases:
 
   build:
     commands:
-      - echo "Construyendo la aplicación React…"
+      - echo "Corriendo vite build…"
       - npm run build
 
   post_build:
     commands:
-      - echo "Desplegando archivos a S3…"
-      - aws s3 sync build/ s3://finnancy-artefacts-bucket --delete
+      - echo "Sincronizando dist/ a S3…"
+      - aws s3 sync dist/ s3://finnancy-artefacts-bucket --delete
 
 artifacts:
   files:
