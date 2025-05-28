@@ -1,34 +1,27 @@
 version: 0.2
 
+env:
+  variables:
+    NPM_CONFIG_PRODUCTION: "false"
+
 phases:
   install:
     runtime-versions:
       nodejs: 18
     commands:
-      - echo "Instalando dependencias..."
-      - npm install --production=false
-  
+      - echo "Instalando dependencias (incluyendo devDependencies)…"
+      - npm install
+
   build:
     commands:
-      - echo "Construyendo la aplicación React..."
+      - echo "Construyendo la aplicación React…"
       - npm run build
-      - echo "Build completado exitosamente"
-  
+
   post_build:
     commands:
-      - echo "Verificando que existe el directorio build..."
-      - ls -la
-      - |
-        if [ -d "build" ]; then
-          echo "Desplegando archivos a S3..."
-          aws s3 sync build/ s3://finnancy-artefacts-bucket --delete
-          echo "Despliegue completado"
-        else
-          echo "Error: El directorio build no existe"
-          exit 1
-        fi
+      - echo "Desplegando archivos a S3…"
+      - aws s3 sync build/ s3://finnancy-artefacts-bucket --delete
 
 artifacts:
   files:
     - '**/*'
-  base-directory: build
