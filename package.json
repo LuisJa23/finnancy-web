@@ -2,13 +2,13 @@
   "name": "finnancy-front",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
-  "scripts": {
+  "type": "module",  "scripts": {
     "dev": "vite",
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "node app.js",
-    "build": "vite build"
+    "build": "vite build",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "bootstrap": "^5.3.6",
