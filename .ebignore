@@ -23,3 +23,6 @@ eslint.config.js
 # Documentation
 README.md
 *.md
+
+# IMPORTANTE: NO excluir dist/ - contiene los archivos compilados
+# dist/ debe estar incluido para el deployment
