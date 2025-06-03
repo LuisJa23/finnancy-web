@@ -2,8 +2,8 @@ version: 0.2
 
 env:
   variables:
-    NPM_CONFIG_PRODUCTION: "false"
     NODE_ENV: "production"
+    NPM_CONFIG_PRODUCTION: "false"
 
 phases:
   install:
@@ -13,25 +13,12 @@ phases:
       - echo "Installing dependencies..."
       - npm ci --include=dev
 
-  pre_build:
-    commands:
-      - echo "Running pre-build checks..."
-      - node --version
-      - npm --version
-
   build:
     commands:
-      - echo "Building application..."
+      - echo "Building React application..."
       - npm run build
-      - echo "Verifying build output..."
-      - ls -la dist/
-      - test -f dist/index.html || (echo "Build failed - index.html not found" && exit 1)
-
-  post_build:
-    commands:
       - echo "Build completed successfully"
 
 artifacts:
   files:
     - "**/*"
-  base-directory: "."

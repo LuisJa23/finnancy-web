@@ -1,21 +1,25 @@
-# EB ignore file
-# Don't upload node_modules since they will be installed on the server
-node_modules/
+# Archivos que NO incluir en Elastic Beanstalk
 
-# Don't upload development files
+# Source files (ya compilados en dist/)
+src/
+public/
+
+# Development files
+node_modules/
 *.log
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Don't upload development tools
+.env.development
 .vscode/
 .idea/
 
-# Don't upload Git files
+# Git files
 .git/
 .gitignore
 
-# Keep dist folder as it will be built on the server
-# dist/
+# Build tools
+vite.config.js
+eslint.config.js
+
+# Documentation
+README.md
+*.md
