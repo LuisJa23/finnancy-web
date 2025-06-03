@@ -1,1 +1,1 @@
-web: serve -s build -p %PORT%
+web: serve -s dist -p $PORT

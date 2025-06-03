@@ -10,7 +10,7 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  const BACKEND_URL = "http://finnancy-backend-api.us-east-2.elasticbeanstalk.com";
 
   const validateEmail = (value) => {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
