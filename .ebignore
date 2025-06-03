@@ -1,0 +1,21 @@
+# EB ignore file
+# Don't upload node_modules since they will be installed on the server
+node_modules/
+
+# Don't upload development files
+*.log
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Don't upload development tools
+.vscode/
+.idea/
+
+# Don't upload Git files
+.git/
+.gitignore
+
+# Keep dist folder as it will be built on the server
+# dist/
