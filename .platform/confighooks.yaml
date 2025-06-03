@@ -1,5 +1,0 @@
-files:
-  "/opt/elasticbeanstalk/hooks/prebuild/01_build.sh":
-    mode: "000755"
-    owner: root
-    group: root

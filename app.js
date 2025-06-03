@@ -8,6 +8,9 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = process.env.PORT || 8080;
 
+// Configurar Express para trabajar detrás de proxy
+app.set('trust proxy', true);
+
 // Middleware de seguridad
 app.use((req, res, next) => {
   res.setHeader('X-Frame-Options', 'DENY');
