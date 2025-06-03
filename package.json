@@ -2,15 +2,17 @@
   "name": "finnancy-front",
   "private": true,
   "version": "0.0.0",
-  "type": "module",  "scripts": {
+  "type": "module",
+  "scripts": {
     "dev": "vite",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "serve -s dist -l 3000",
+    "start": "node app.js",
     "build": "vite build"
   },
   "dependencies": {
     "bootstrap": "^5.3.6",
+    "express": "^4.21.2",
     "firebase": "^11.8.1",
     "lucide-react": "^0.511.0",
     "react": "^19.1.0",
