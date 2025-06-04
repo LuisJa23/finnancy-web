@@ -1,26 +1,130 @@
 /* CSS for TotalSavings */
 .total-savings-container {
-  /* Add styles to match the image */
-  /* Specific styles for this chart if needed */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 350px;
 }
 
 .total-savings-container .chart-title.amount {
-  font-size: 2.5em; /* Larger font for the amount */
+  font-size: 2.5em;
   font-weight: bold;
   color: #333;
-  margin-bottom: 5px; /* Smaller margin below amount */
+  margin-bottom: 5px;
   text-align: center;
+}
+
+.total-savings-container .balance-info {
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 .total-savings-container .savings-text {
   font-size: 0.9em;
   color: #666;
   text-align: center;
-  margin-bottom: 20px; /* Space before the chart */
+  margin-bottom: 5px;
+}
+
+.total-savings-container .balance-change {
+  font-size: 0.85em;
+  font-weight: 500;
+  text-align: center;
+}
+
+.total-savings-container .balance-change.positive {
+  color: #16a34a;
+}
+
+.total-savings-container .balance-change.negative {
+  color: #dc2626;
 }
 
 .total-savings-container .header-container {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
-/* General chart card styles are in ExpensesByCategory.css */ 
+.total-savings-container .loading-container,
+.total-savings-container .error-container,
+.total-savings-container .no-data-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  min-height: 200px;
+  color: #666;
+}
+
+.total-savings-container .loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.total-savings-container .error-text {
+  color: #dc2626;
+}
+
+/* Custom Tooltip Styles */
+.custom-tooltip {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 0.85em;
+}
+
+.custom-tooltip .tooltip-label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.custom-tooltip .tooltip-balance,
+.custom-tooltip .tooltip-change {
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-tooltip .tooltip-label-text {
+  color: #666;
+  margin-right: 8px;
+}
+
+.custom-tooltip .tooltip-value {
+  font-weight: 600;
+}
+
+.custom-tooltip .tooltip-value.positive {
+  color: #16a34a;
+}
+
+.custom-tooltip .tooltip-value.negative {
+  color: #dc2626;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .total-savings-container .chart-title.amount {
+    font-size: 2em;
+  }
+  
+  .total-savings-container .savings-text {
+    font-size: 0.8em;
+  }
+  
+  .total-savings-container .balance-change {
+    font-size: 0.75em;
+  }
+}
