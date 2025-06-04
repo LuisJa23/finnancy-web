@@ -2,12 +2,13 @@
 
 echo "=== Iniciando prebuild hook ==="
 
-# Verificar si existe la carpeta dist
-if [ -d "/var/app/staging/dist" ]; then
-    echo "La carpeta dist ya existe"
+# Verificar que el directorio dist existe para el build de React
+if [ ! -d "dist" ]; then
+    echo "Creando directorio dist..."
+    mkdir -p dist
+    echo "Directorio dist creado exitosamente"
 else
-    echo "Creando carpeta dist..."
-    mkdir -p /var/app/staging/dist
+    echo "El directorio dist ya existe"
 fi
 
 echo "=== Prebuild hook completado exitosamente ==="
