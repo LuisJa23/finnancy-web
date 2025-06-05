@@ -26,9 +26,7 @@ export async function getFinancialReport(userId = null) {
     const uid = userId || getCurrentUserUID();
     if (!uid) {
       throw new Error('No se pudo obtener el ID del usuario');
-    }
-
-    const response = await fetch(`${REPORTS_BACKEND_URL}/api/reports/financial-report/${uid}`, {
+    }    const response = await fetch(`${REPORTS_BACKEND_URL}/api/reports/financial-report/${uid}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -64,9 +62,7 @@ export async function getTransactionSummary(userId = null) {
     const uid = userId || getCurrentUserUID();
     if (!uid) {
       throw new Error('No se pudo obtener el ID del usuario');
-    }
-
-    const response = await fetch(`${BACKEND_URL}/api/transactions/summary/${uid}`, {
+    }    const response = await fetch(`${REPORTS_BACKEND_URL}/api/reports?userId=${uid}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -101,9 +97,7 @@ export async function getAllUserTransactions(userId = null) {
     const uid = userId || getCurrentUserUID();
     if (!uid) {
       throw new Error('No se pudo obtener el ID del usuario');
-    }
-
-    const response = await fetch(`${BACKEND_URL}/api/transactions/user/${uid}`, {
+    }    const response = await fetch(`${REPORTS_BACKEND_URL}/api/reports/debug-transactions/${uid}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -165,9 +159,7 @@ export async function getLastTransactionsWithBalance(userId = null) {
     const uid = userId || getCurrentUserUID();
     if (!uid) {
       throw new Error('No se pudo obtener el ID del usuario');
-    }
-
-    const response = await fetch(`${REPORTS_BACKEND_URL}/api/transactions/last-8-with-balance/${uid}`, {
+    }    const response = await fetch(`${REPORTS_BACKEND_URL}/api/reports?userId=${uid}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -184,6 +176,82 @@ export async function getLastTransactionsWithBalance(userId = null) {
     return data;
   } catch (error) {
     console.error('Error en getLastTransactionsWithBalance:', error);
+    throw error;
+  }
+}
+
+/**
+ * Obtiene las tendencias de gastos del usuario
+ * @param {string} userId - ID del usuario (opcional, se obtiene del token si no se proporciona)
+ * @returns {Promise<Object>} - Tendencias de gastos
+ */
+export async function getSpendingTrends(userId = null) {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error('No se encontró token de autenticación');
+    }
+
+    const uid = userId || getCurrentUserUID();
+    if (!uid) {
+      throw new Error('No se pudo obtener el ID del usuario');
+    }
+
+    const response = await fetch(`${REPORTS_BACKEND_URL}/api/insights/spending-trends?userId=${uid}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error al obtener tendencias de gastos: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log('📈 Tendencias de gastos:', data);
+    return data;
+  } catch (error) {
+    console.error('Error en getSpendingTrends:', error);
+    throw error;
+  }
+}
+
+/**
+ * Obtiene las tendencias financieras del usuario
+ * @param {string} userId - ID del usuario (opcional, se obtiene del token si no se proporciona)
+ * @returns {Promise<Object>} - Tendencias financieras
+ */
+export async function getFinancialTrends(userId = null) {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error('No se encontró token de autenticación');
+    }
+
+    const uid = userId || getCurrentUserUID();
+    if (!uid) {
+      throw new Error('No se pudo obtener el ID del usuario');
+    }
+
+    const response = await fetch(`${REPORTS_BACKEND_URL}/api/insights/financial-trends?userId=${uid}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error al obtener tendencias financieras: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log('📊 Tendencias financieras:', data);
+    return data;
+  } catch (error) {
+    console.error('Error en getFinancialTrends:', error);
     throw error;
   }
 }
