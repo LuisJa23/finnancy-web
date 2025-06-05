@@ -1,6 +1,10 @@
 /* CSS for IncomeVsExpenses */
 .income-vs-expenses-container {
   /* Add styles to match the image */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 380px; /* Incrementado para acomodar gráfica más grande */
 }
 
 .income-vs-expenses-container .header-container {
@@ -21,23 +25,111 @@
   color: #333;
 }
 
-.filter-button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-top: 20px;
-  background-color: #e7eaf6; /* Light blue-gray from image */
-  color: #38598b; /* Darker blue from image */
-  border: none;
+/* Estilos para la información del mes actual */
+.current-month-info {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
-  font-size: 1em;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  padding: 12px;
+  margin-top: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.filter-button:hover {
-  background-color: #dce1f0;
+.current-month-header {
+  margin-bottom: 8px;
+}
+
+.current-month-title {
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.current-month-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.income-info,
+.expense-info,
+.balance-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85em;
+}
+
+.income-info {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-left: 4px solid #10b981;
+}
+
+.expense-info {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-left: 4px solid #ef4444;
+}
+
+.balance-info {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-left: 4px solid #3b82f6;
+  font-weight: 600;
+}
+
+.income-icon,
+.expense-icon,
+.balance-icon {
+  font-size: 1em;
+  margin-right: 6px;
+}
+
+.income-label,
+.expense-label,
+.balance-label {
+  color: #4a5568;
+  font-weight: 500;
+  flex: 1;
+  font-size: 0.85em;
+}
+
+.income-amount {
+  color: #059669;
+  font-weight: 600;
+}
+
+.expense-amount {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.balance-amount {
+  font-weight: 700;
+}
+
+.balance-amount.positive {
+  color: #059669;
+}
+
+.balance-amount.negative {
+  color: #dc2626;
+}
+
+.no-current-month-info {
+  background-color: #f7fafc;
+  border: 1px dashed #cbd5e0;
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 15px;
+  text-align: center;
+  color: #718096;
+  font-style: italic;
+  font-size: 0.85em;
 }
 
 .custom-tooltip {
@@ -57,4 +149,119 @@
   margin: 0;
   font-size: 0.9em;
 }
-/* General chart card styles are in ExpensesByCategory.css */ 
+
+/* Estados para cuando no hay datos */
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #A0AEC0;
+  text-align: center;
+}
+
+.no-data-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.no-data-text {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.no-data-subtext {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.income-vs-expenses-container .chart-container {
+  flex: 1;
+  width: 100%;
+  min-height: 220px; /* Incrementado aún más para escritorio */
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative; /* Asegurar posicionamiento correcto */
+  overflow: visible; /* Evitar que se corte la gráfica */
+  margin-bottom: 5px; /* Reducir espacio con la leyenda */
+}
+
+/* Asegurar que ResponsiveContainer funcione correctamente */
+.income-vs-expenses-container .chart-container .recharts-wrapper {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 220px !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .income-vs-expenses-container {
+    min-height: 300px; /* Reducir altura mínima en móviles */
+  }
+  
+  .income-vs-expenses-container .chart-container {
+    min-height: 140px; /* Incrementado para aprovechar el espacio */
+    height: 140px;
+    flex-shrink: 0; /* Evitar que se comprima */
+    position: relative;
+    overflow: visible;
+    margin-bottom: 3px;
+  }
+  
+  .income-vs-expenses-container .chart-container .recharts-wrapper {
+    width: 100% !important;
+    height: 140px !important;
+    min-height: 140px !important;
+  }
+  
+  .current-month-details {
+    gap: 5px;
+  }
+  
+  .income-info,
+  .expense-info,
+  .balance-info {
+    padding: 5px 8px;
+    font-size: 0.8em;
+  }
+  
+  .current-month-title {
+    font-size: 0.9em;
+  }
+  
+  .current-month-info {
+    padding: 10px;
+    margin-top: 3px;
+  }
+  
+  .income-label,
+  .expense-label,
+  .balance-label {
+    font-size: 0.8em;
+  }
+}
+
+/* Media query adicional para dispositivos muy pequeños */
+@media (max-width: 480px) {
+  .income-vs-expenses-container {
+    min-height: 280px;
+  }
+  
+  .income-vs-expenses-container .chart-container {
+    min-height: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+  }
+  
+  .income-vs-expenses-container .chart-container .recharts-wrapper {
+    width: 100% !important;
+    height: 120px !important;
+    min-height: 120px !important;
+  }
+}

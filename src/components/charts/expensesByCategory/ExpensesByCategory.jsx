@@ -218,4 +218,4 @@ function ExpensesByCategory({ data: propData }) {
   );
 }
 
-export default ExpensesByCategory; 
+export default ExpensesByCategory;

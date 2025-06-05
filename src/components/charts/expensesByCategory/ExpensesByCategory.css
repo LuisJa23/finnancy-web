@@ -10,23 +10,60 @@
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   padding: 24px;
-  height: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 100%;
-  min-height: 420px;
+  height: auto; /* Permite que se ajuste al contenido */
   position: relative;
+  overflow: visible; /* Sin restricciones de overflow */
+}
+
+.chart-header {
+  flex-shrink: 0;
+  margin-bottom: 16px;
 }
 
 .chart-title {
   font-size: 1.1em;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   color: #2D3748;
   text-align: left;
+}
+
+.chart-subtitle {
+  font-size: 0.9em;
+  color: #718096;
+  margin-bottom: 0;
+}
+
+.chart-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Permite que el contenido use todo el espacio disponible */
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Usa todo el espacio disponible */
+  justify-content: space-between; /* Distribuye el espacio entre chart y legend */
+}
+
+.chart-wrapper {
   flex-shrink: 0;
+  margin-bottom: 20px;
+}
+
+.legend-wrapper {
+  flex: 1;
+  width: 100%;
+  overflow: visible; /* Sin scroll */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra la leyenda en el espacio disponible */
 }
 
 /* Chart container wrapper */
@@ -38,31 +75,84 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+/* Fix z-index issues for chart elements */
+.recharts-wrapper {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.recharts-surface {
+  z-index: 2 !important;
+}
+
+.recharts-pie {
+  z-index: 3 !important;
+}
+
+.recharts-pie-label-text {
+  z-index: 4 !important;
+  pointer-events: none;
+  font-weight: 600 !important;
+  fill: #fff !important;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8) !important;
+}
+
+.recharts-tooltip-wrapper {
+  z-index: 10 !important;
+}
+
+/* Estados para cuando no hay datos */
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #A0AEC0;
+  text-align: center;
+}
+
+.no-data-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.no-data-text {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.no-data-subtext {
+  font-size: 14px;
+  opacity: 0.8;
 }
 
 .custom-legend {
   list-style: none;
   padding: 0;
-  margin: 10px 0 0 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
   width: 100%;
-  max-width: 100%;
-  flex-shrink: 0;
+  gap: 10px; /* Reducir un poco el gap para acomodar más categorías */
+  overflow: visible; /* Sin restricciones de overflow */
+  max-height: none; /* Sin límite de altura máxima */
 }
 
 .custom-legend li {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
   font-size: 0.85em;
   width: 100%;
   color: #4A5568;
-}
-
-.custom-legend li:last-child {
-  margin-bottom: 0;
+  padding: 6px 0; /* Reducir padding para acomodar más categorías */
+  min-height: 40px; /* Reducir altura mínima */
+  overflow: visible; /* Sin restricciones */
 }
 
 .legend-icon-background {
@@ -72,22 +162,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
+  margin-right: 12px;
   flex-shrink: 0;
 }
 
-.legend-icon-emoji {
+.legend-icon {
   font-size: 0.9em;
 }
 
-.legend-text-category {
+.legend-text {
   flex-grow: 1;
   font-weight: 500;
 }
 
 .legend-value {
   margin-left: auto;
-  font-weight: 500;
+  font-weight: 600;
   color: #718096;
   flex-shrink: 0;
 }
@@ -96,29 +186,34 @@
 @media (max-width: 768px) {
   .chart-card {
     padding: 20px;
-    min-height: 400px;
+    /* Eliminamos min-height fijo para permitir altura dinámica */
   }
   
   .chart-title {
     font-size: 1em;
   }
   
-  .chart-container-wrapper {
-    min-height: 160px;
+  .chart-subtitle {
+    font-size: 0.85em;
   }
-  .custom-legend {
-    margin-top: 8px;
+  
+  .chart-wrapper {
+    margin-bottom: 16px;
   }
+  
   .custom-legend li {
-    margin-bottom: 8px;
     font-size: 0.8em;
+    padding: 6px 0;
+    min-height: 40px;
   }
+  
   .legend-icon-background {
     width: 26px;
     height: 26px;
-    margin-right: 8px;
+    margin-right: 10px;
   }
-  .legend-icon-emoji {
+  
+  .legend-icon {
     font-size: 0.85em;
   }
 }
@@ -126,30 +221,34 @@
 @media (max-width: 480px) {
   .chart-card {
     padding: 16px;
-    min-height: 380px;
+    /* Eliminamos min-height fijo para permitir altura dinámica */
   }
   
   .chart-title {
     font-size: 0.95em;
-    margin-bottom: 15px;
   }
   
-  .chart-container-wrapper {
-    min-height: 150px;
+  .chart-subtitle {
+    font-size: 0.8em;
   }
-  .custom-legend {
-    margin-top: 6px;
+  
+  .chart-wrapper {
+    margin-bottom: 12px;
   }
+  
   .custom-legend li {
-    margin-bottom: 6px;
     font-size: 0.75em;
+    padding: 4px 0;
+    min-height: 36px;
   }
+  
   .legend-icon-background {
     width: 24px;
     height: 24px;
-    margin-right: 6px;
+    margin-right: 8px;
   }
-  .legend-icon-emoji {
+  
+  .legend-icon {
     font-size: 0.8em;
   }
-} 
+}

@@ -57,7 +57,7 @@ function Stats() {
     return (
       <div className="stats-container">
         <div className="error-message">
-          <p>Error al cargar las estadísticas: {error}</p>
+          <p>Error al cargar los datos: {error}</p>
           <button onClick={() => window.location.reload()}>Reintentar</button>
         </div>
       </div>
@@ -88,6 +88,7 @@ function Stats() {
   //     }
   //   ]
   // };
+
   return (
     <div className="stats-container">
       {/* The main title "Estadísticas" is usually part of the page layout or a higher-level component. */}
@@ -104,14 +105,16 @@ function Stats() {
         <div>
           <IncomeVsExpenses />
         </div>
-      </Slider> */}      <div>
-        <ExpensesByCategory data={financialData?.expensesByCategory || []} loading={loading} error={error} />
+      </Slider> */}
+
+      <div>
+        <ExpensesByCategory data={financialData?.expensesByCategory || []} />
       </div>
       <div>
-        <TotalSavings data={lastTransactions} loading={loading} error={error} />
+        <TotalSavings data={lastTransactions} />
       </div>
       <div>
-        <IncomeVsExpenses data={financialData?.incomeVsExpenses} loading={loading} error={error} />
+        <IncomeVsExpenses data={financialData?.incomeVsExpenses} />
       </div>
     </div>
   );

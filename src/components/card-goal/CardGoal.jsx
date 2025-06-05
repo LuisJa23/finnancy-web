@@ -24,7 +24,7 @@ const CardGoal = ({
   const strokeDashoffset = circumference - (porcentaje / 100) * circumference;
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("es-MX", {
+    return new Intl.NumberFormat("es-CO", {
       style: "currency",
       currency: "COP",
       minimumFractionDigits: 0,
@@ -141,7 +141,7 @@ const CardGoal = ({
             cy="60"
             r="45"
             fill="none"
-            stroke="#4F46E5"
+            stroke="#1e90ff"
             strokeWidth="12"
             strokeLinecap="round"
             strokeDasharray={strokeDasharray}
@@ -187,7 +187,7 @@ const CardGoal = ({
               onClick={() => setIsAddingFunds(true)}
               disabled={porcentaje >= 100}
             >
-              {porcentaje >= 100 ? "🎉 Meta Completada" : "💰 Agregar Fondos"}
+              {porcentaje >= 100 ? "🎉 Meta Completada" : "Agregar Fondos"}
             </button>
           ) : (
             <div className="card-goal__add-funds-form">
