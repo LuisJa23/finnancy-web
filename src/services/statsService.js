@@ -2,6 +2,7 @@
 import { getCurrentUserUID } from './AuthService.js';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8081';
+const REPORTS_BACKEND_URL = import.meta.env.VITE_REPORTS_BACKEND_URL || 'http://finnnacy-reports-backend.us-east-2.elasticbeanstalk.com';
 
 /**
  * Obtiene el token del localStorage
@@ -27,7 +28,7 @@ export async function getFinancialReport(userId = null) {
       throw new Error('No se pudo obtener el ID del usuario');
     }
 
-    const response = await fetch(`${BACKEND_URL}/api/reports/financial-report/${uid}`, {
+    const response = await fetch(`${REPORTS_BACKEND_URL}/api/reports/financial-report/${uid}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -166,7 +167,7 @@ export async function getLastTransactionsWithBalance(userId = null) {
       throw new Error('No se pudo obtener el ID del usuario');
     }
 
-    const response = await fetch(`${BACKEND_URL}/api/transactions/last-8-with-balance/${uid}`, {
+    const response = await fetch(`${REPORTS_BACKEND_URL}/api/transactions/last-8-with-balance/${uid}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
