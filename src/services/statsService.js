@@ -154,12 +154,10 @@ export async function getLastTransactionsWithBalance(userId = null) {
     const token = getAuthToken();
     if (!token) {
       throw new Error('No se encontró token de autenticación');
-    }
-
-    const uid = userId || getCurrentUserUID();
+    }    const uid = userId || getCurrentUserUID();
     if (!uid) {
       throw new Error('No se pudo obtener el ID del usuario');
-    }    const response = await fetch(`${REPORTS_BACKEND_URL}/api/reports?userId=${uid}`, {
+    }    const response = await fetch(`${REPORTS_BACKEND_URL}/api/reports/debug-transactions/${uid}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
