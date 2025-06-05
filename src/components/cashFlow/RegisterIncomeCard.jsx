@@ -5,7 +5,7 @@ import {
 } from "../../services/transactionService";
 import "./RegisterIncomeCard.css";
 
-function RegisterIncomeCard() {
+function RegisterIncomeCard({ onTransactionAdded }) {
   const [expanded, setExpanded] = useState(false);
   const [amount, setAmount] = useState("");
   const [details, setDetails] = useState("");
@@ -26,6 +26,13 @@ function RegisterIncomeCard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Debug: verificar estado actual de todos los campos
+    console.log("🔍 DEBUG RegisterIncomeCard - Estado de campos:");
+    console.log("  Amount:", amount);
+    console.log("  Details:", details);
+    console.log("  Category:", category);
+    console.log("  Method:", method);
+
     // Preparar datos del formulario
     const formData = {
       amount,
@@ -33,6 +40,10 @@ function RegisterIncomeCard() {
       category,
       method,
     };
+
+    // Debug: verificar objeto formData antes de validación
+    console.log("🔍 DEBUG RegisterIncomeCard - FormData preparado:", formData);
+    console.log("🔍 DEBUG RegisterIncomeCard - Claves del formData:", Object.keys(formData));
 
     // Validar datos
     const validation = validateIncomeData(formData);
@@ -50,6 +61,9 @@ function RegisterIncomeCard() {
     setLoading(true);
 
     try {
+      // Debug: último check antes de enviar
+      console.log("🔍 DEBUG RegisterIncomeCard - Enviando al service:", formData);
+      
       const result = await registerIncome(formData);
 
       if (result.success) {
@@ -60,10 +74,15 @@ function RegisterIncomeCard() {
         setCategory("");
         setMethod("");
 
-        // Opcional: mostrar mensaje de éxito
+        // Mostrar mensaje de éxito
         alert("Ingreso registrado exitosamente");
 
-        // Opcional: disparar evento para actualizar la lista de transacciones
+        // AQUÍ ES LA CLAVE: Llamar a la función para refrescar los datos
+        if (onTransactionAdded && typeof onTransactionAdded === "function") {
+          onTransactionAdded();
+        }
+
+        // Mantener el evento personalizado como respaldo
         window.dispatchEvent(
           new CustomEvent("incomeRegistered", {
             detail: result.data,
@@ -152,9 +171,8 @@ function RegisterIncomeCard() {
               required
             >
               <option value="">Seleccionar Categoría</option>
-              <option value="salario">Salario</option>
-              <option value="venta">Venta</option>
-              <option value="otro">Otro</option>
+              <option value="Salario">💰 Salario</option>
+              <option value="Otro">🧾 Otro</option>
             </select>
           </div>
 
@@ -170,9 +188,10 @@ function RegisterIncomeCard() {
                 required
               >
                 <option value="">Seleccionar Método</option>
-                <option value="efectivo">Efectivo</option>
-                <option value="tarjeta">Tarjeta</option>
-                <option value="transferencia">Transferencia</option>
+                <option value="CASH">💵 Efectivo</option>
+                <option value="DEBIT_CARD">💳 Tarjeta Débito</option>
+                <option value="CREDIT_CARD">💳 Tarjeta Crédito</option>
+                <option value="BANK_TRANSFER">🏦 Transferencia Bancaria</option>
               </select>
             </div>
           </div>

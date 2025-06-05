@@ -28,7 +28,19 @@ const TransactionTable = ({ onTransactionChange }) => {
       }
 
       const data = await response.json();
-      setTransactions(data);
+      
+      // IMPORTANTE: Ordenar las transacciones por fecha/hora para mostrar la más reciente primero
+      // Esto asegura que la tabla respete el orden cronológico real
+      const sortedTransactions = [...data].sort((a, b) => {
+        // Convertir las fechas a objetos Date para comparación precisa
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        
+        // Ordenar de más reciente a más antigua (descendente) para la tabla
+        return dateB.getTime() - dateA.getTime();
+      });
+      
+      setTransactions(sortedTransactions);
       setError(null);
     } catch (err) {
       console.error("Error al cargar transacciones:", err);
@@ -114,7 +126,7 @@ const TransactionTable = ({ onTransactionChange }) => {
 
   // Función para formatear el monto
   const formatAmount = (amount, data) => {
-    const formattedAmount = Math.abs(amount).toLocaleString("es-ES", {
+    const formattedAmount = Math.abs(amount).toLocaleString("es-CO", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
@@ -173,10 +185,10 @@ const TransactionTable = ({ onTransactionChange }) => {
               <tr>
                 <th>Logo</th>
                 <th>Descripción</th>
-                <th>Categoría</th>
+                <th>Categoria</th>
                 <th>Fecha</th>
                 <th>Monto</th>
-                <th></th>
+                <th>Eliminar</th>
               </tr>
             </thead>
             <tbody>
@@ -186,6 +198,7 @@ const TransactionTable = ({ onTransactionChange }) => {
                   <td className="transaction-description">
                     {transaction.description}
                   </td>
+
                   <td className="transaction-category">
                     {transaction.category}
                   </td>

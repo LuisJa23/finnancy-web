@@ -5,7 +5,7 @@ import {
 } from "../../services/transactionService";
 import "./RegisterExpenseCard.css";
 
-function RegisterExpenseCard() {
+function RegisterExpenseCard({ onTransactionAdded }) {
   const [expanded, setExpanded] = useState(false);
   const [amount, setAmount] = useState("");
   const [details, setDetails] = useState("");
@@ -26,7 +26,6 @@ function RegisterExpenseCard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Preparar datos del formulario
     const formData = {
       amount,
       details,
@@ -53,17 +52,20 @@ function RegisterExpenseCard() {
       const result = await registerExpense(formData);
 
       if (result.success) {
-        // Éxito - resetear formulario y cerrar
+        // Resetear formulario
         setExpanded(false);
         setAmount("");
         setDetails("");
         setCategory("");
         setMethod("");
+        setError("");
 
-        // Opcional: mostrar mensaje de éxito
-        alert("Egreso registrado exitosamente");
+        // Intentar refrescar datos parent si existe la función
+        if (onTransactionAdded && typeof onTransactionAdded === "function") {
+          onTransactionAdded();
+        }
 
-        // Opcional: disparar evento para actualizar la lista de transacciones
+        // Disparar evento personalizado para otros componentes
         window.dispatchEvent(
           new CustomEvent("expenseRegistered", {
             detail: result.data,
@@ -74,7 +76,6 @@ function RegisterExpenseCard() {
       }
     } catch (error) {
       setError("Error inesperado al registrar el egreso");
-      console.error("Error:", error);
     } finally {
       setLoading(false);
     }
@@ -136,7 +137,10 @@ function RegisterExpenseCard() {
               name="details"
               rows={3}
               value={details}
-              onChange={(e) => setDetails(e.target.value)}
+              onChange={(e) => {
+                const detailsValue = e.target.value;
+                setDetails(detailsValue);
+              }}
               disabled={loading}
             />
           </div>
@@ -147,15 +151,20 @@ function RegisterExpenseCard() {
               className="form-input"
               name="category"
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {
+                const selectedCategory = e.target.value;
+                setCategory(selectedCategory);
+              }}
               disabled={loading}
               required
             >
               <option value="">Seleccionar Categoría</option>
-              <option value="alimentacion">Alimentación</option>
-              <option value="servicios">Servicios</option>
-              <option value="transporte">Transporte</option>
-              <option value="otro">Otro</option>
+              <option value="Supermercado">🛒 Supermercado</option>
+              <option value="Hogar">🏠 Hogar</option>
+              <option value="Tarjeta de crédito">💳 Tarjeta de crédito</option>
+              <option value="Transporte">🚗 Transporte</option>
+              <option value="Tiendas">🛍️ Tiendas</option>
+              <option value="Otro">🧾 Otro</option>
             </select>
           </div>
 
@@ -171,9 +180,10 @@ function RegisterExpenseCard() {
                 required
               >
                 <option value="">Seleccionar Método</option>
-                <option value="efectivo">Efectivo</option>
-                <option value="tarjeta">Tarjeta</option>
-                <option value="transferencia">Transferencia</option>
+                <option value="CASH">💵 Efectivo</option>
+                <option value="DEBIT_CARD">💳 Tarjeta Débito</option>
+                <option value="CREDIT_CARD">💳 Tarjeta Crédito</option>
+                <option value="BANK_TRANSFER">🏦 Transferencia Bancaria</option>
               </select>
             </div>
           </div>

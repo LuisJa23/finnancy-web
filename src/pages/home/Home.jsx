@@ -1,65 +1,73 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import CardData from "../../components/cardData/CardData";
 import logo from "../../assets/finnanci.png";
 import TransactionTable from "../../components/transactionInfo/TransactionTable";
 import RegisterIncomeCard from "../../components/cashFlow/RegisterIncomeCard";
 import RegisterExpenseCard from "../../components/cashFlow/RegisterExpenseCard";
 import { getTransactionSummary } from "../../services/transactionService";
-import { getCurrentUserUID } from "../../services/AuthService"; // Cambiado a AuthService
+import { getCurrentUserUID } from "../../services/AuthService";
 import "./Home.css";
 
 function Home() {
   const [summaryData, setSummaryData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-  useEffect(() => {
-    const fetchSummaryData = async () => {
-      try {
-        setLoading(true);
+  // Ref para evitar múltiples llamadas simultáneas
+  const isRefreshing = useRef(false);
 
-        // Obtener el UID del usuario actual
-        const userId = getCurrentUserUID();
+  // Función memoizada para obtener datos del resumen
+  const fetchSummaryData = useCallback(async () => {
+    // Evitar múltiples llamadas simultáneas
+    if (isRefreshing.current) return;
 
-        if (!userId) {
-          throw new Error("No se pudo obtener el ID del usuario");
-        }
+    try {
+      isRefreshing.current = true;
+      setLoading(true);
 
-        // Obtener los datos del resumen
-        const data = await getTransactionSummary(userId);
-        setSummaryData(data);
-        setError(null);
-      } catch (err) {
-        console.error("Error al cargar el resumen:", err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
+      const userId = getCurrentUserUID();
+
+      if (!userId) {
+        throw new Error("No se pudo obtener el ID del usuario");
       }
-    };
 
-    fetchSummaryData();
+      const data = await getTransactionSummary(userId);
+      setSummaryData(data);
+      setError(null);
+    } catch (err) {
+      console.error("Error al cargar el resumen:", err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+      isRefreshing.current = false;
+    }
   }, []);
 
+  // Efecto principal para cargar datos iniciales y cuando cambie refreshTrigger
+  useEffect(() => {
+    fetchSummaryData();
+  }, [fetchSummaryData, refreshTrigger]);
+
   // Función para formatear números
-  const formatNumber = (number) => {
-    return number.toLocaleString("es-ES", {
+  const formatNumber = useCallback((number) => {
+    return number.toLocaleString("es-CO", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
-  };
+  }, []);
 
-  // Función para refrescar los datos (útil después de agregar transacciones)
-  const refreshData = async () => {
-    try {
-      const userId = getCurrentUserUID();
-      if (userId) {
-        const data = await getTransactionSummary(userId);
-        setSummaryData(data);
-      }
-    } catch (err) {
-      console.error("Error al refrescar datos:", err);
-    }
-  };
+  // Función optimizada para refrescar los datos
+  const refreshData = useCallback(async () => {
+    // Incrementar el trigger para forzar la recarga
+    setRefreshTrigger((prev) => prev + 1);
+  }, []);
+
+  // Función para manejar errores y reintentar
+  const handleRetry = useCallback(() => {
+    setError(null);
+    setRefreshTrigger((prev) => prev + 1);
+  }, []);
 
   return (
     <div className="main-content">
@@ -77,16 +85,13 @@ function Home() {
             // Mostrar error
             <div className="error-message">
               <p>Error al cargar los datos: {error}</p>
-              <button
-                onClick={() => window.location.reload()}
-                className="retry-button"
-              >
+              <button onClick={handleRetry} className="retry-button">
                 Reintentar
               </button>
             </div>
           ) : summaryData ? (
             // Mostrar las tarjetas con datos reales
-            <>
+            <div className="card-container">
               <CardData
                 title="Saldo Actual"
                 value={formatNumber(summaryData.totalBalance)}
@@ -105,11 +110,14 @@ function Home() {
                 value={formatNumber(summaryData.totalExpenses)}
                 count={summaryData.expenseTransactionsCount}
               />
-            </>
+            </div>
           ) : (
             // Fallback si no hay datos
             <div className="no-data-message">
               <p>No se encontraron datos financieros</p>
+              <button onClick={handleRetry} className="retry-button">
+                Cargar datos
+              </button>
             </div>
           )}
         </div>
@@ -117,7 +125,10 @@ function Home() {
 
       <div className="content-transaction">
         <div className="table-transaction">
-          <TransactionTable onTransactionChange={refreshData} />
+          <TransactionTable
+            onTransactionChange={refreshData}
+            key={refreshTrigger} // Forzar re-render de la tabla
+          />
         </div>
         <div className="transaction-buttons container mt-4">
           <RegisterIncomeCard onTransactionAdded={refreshData} />
